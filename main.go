@@ -24,7 +24,7 @@ func (m *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	//http.HandleFunc("/", handler)
+	http.HandleFunc("/", handler)
 
 	//myHandler := MyHandler{}
 	//http.Handle("/myHandler", &myHandler)
@@ -38,9 +38,10 @@ func main() {
 	// server.ListenAndServe()
 
 	// 创建多路复用器
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", handler)
+	//mux := http.NewServeMux()
+	//mux.HandleFunc("/", handler)
 
 	// 创建路由
-	http.ListenAndServe(":8080", mux)
+	//http.ListenAndServe(":8080", mux)
+	http.ListenAndServe(":8080", nil)
 }
