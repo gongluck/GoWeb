@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"net/http"
 	//"encoding/json"
+	"html/template"
 )
 
 // 创建处理器函数
@@ -53,8 +54,14 @@ func (m *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// w.Write(json)
 
 	//重定向
-	w.Header().Set("Location", "https://gongluck.github.io")
-	w.WriteHeader(http.StatusFound)
+	// w.Header().Set("Location", "https://gongluck.github.io")
+	// w.WriteHeader(http.StatusFound)
+
+	//模板
+	//t, _ := template.ParseFiles("index.html")
+	//t.Execute(w, r.FormValue("name"))
+	t := template.Must(template.ParseFiles("index.html", "index2.html"))
+	t.ExecuteTemplate(w, "index2.html", r.FormValue("name"))
 }
 
 func main() {
