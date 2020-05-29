@@ -16,6 +16,15 @@ import (
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, r.Method, r.URL.Path, r.Proto)
 	fmt.Fprintln(w, r.URL.RawQuery)
+
+	fmt.Fprintln(w, r.Header)
+	fmt.Fprintln(w, r.Header["User-Agent"])
+	fmt.Fprintln(w, r.Header.Get("User-Agent"))
+
+	bodylen := r.ContentLength
+	body := make([]byte, bodylen)
+	r.Body.Read(body)
+	fmt.Fprintln(w, string(body))
 }
 
 type MyHandler struct{}
