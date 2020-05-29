@@ -58,17 +58,21 @@ func (m *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// w.WriteHeader(http.StatusFound)
 
 	//模板
-	//t, _ := template.ParseFiles("index.html")
+	t, _ := template.ParseFiles("views/index.html")
 	//t.Execute(w, r.FormValue("name"))
-	t := template.Must(template.ParseFiles("index.html", "index2.html"))
-	t.ExecuteTemplate(w, "index2.html", r.FormValue("name"))
+	//t := template.Must(template.ParseFiles("index.html", "index2.html"))
+	t.ExecuteTemplate(w, "index.html", "")
 }
 
 func main() {
 	//http.HandleFunc("/", handler)
 
+	//设置静态资源
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("views/static/"))))
+	http.Handle("/pages/", http.StripPrefix("/pages/", http.FileServer(http.Dir("views/pages/"))))
+
 	myHandler := MyHandler{}
-	http.Handle("/", &myHandler)
+	http.Handle("/main", &myHandler)
 
 	// 创建Server结构，并详细配置里面的字段
 	// server := http.Server{
