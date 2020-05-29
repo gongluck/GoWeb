@@ -14,7 +14,8 @@ import (
 
 // 创建处理器函数
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Hello, World!", r.URL.Path)
+	fmt.Fprintln(w, r.Method, r.URL.Path, r.Proto)
+	fmt.Fprintln(w, r.URL.RawQuery)
 }
 
 type MyHandler struct{}
