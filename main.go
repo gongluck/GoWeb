@@ -21,10 +21,18 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, r.Header["User-Agent"])
 	fmt.Fprintln(w, r.Header.Get("User-Agent"))
 
-	bodylen := r.ContentLength
-	body := make([]byte, bodylen)
-	r.Body.Read(body)
-	fmt.Fprintln(w, string(body))
+	// bodylen := r.ContentLength
+	// body := make([]byte, bodylen)
+	// r.Body.Read(body)
+	// fmt.Fprintln(w, string(body))
+
+	//和以上的方法二选一,r.Body应该是只能Read一次
+	// r.ParseForm()
+	// fmt.Fprintln(w, r.Form)
+	// fmt.Fprintln(w, r.PostForm)
+
+	fmt.Fprintln(w, "name:", r.FormValue("name"))
+	fmt.Fprintln(w, "password:", r.FormValue("password"))
 }
 
 type MyHandler struct{}
