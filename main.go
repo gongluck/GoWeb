@@ -8,8 +8,10 @@
 package main
 
 import (
+	//"GoWeb/model"
 	"fmt"
 	"net/http"
+	//"encoding/json"
 )
 
 // 创建处理器函数
@@ -38,14 +40,28 @@ func handler(w http.ResponseWriter, r *http.Request) {
 type MyHandler struct{}
 
 func (m *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "通过自己创建的处理器处理请求！")
+	//fmt.Fprintf(w, "通过自己创建的处理器处理请求！")
+
+	// w.Header().Set("Content-Type", "application/json")
+	// user := model.User{
+	// 	ID:       1,
+	// 	Username: "gongluck",
+	// 	Password: "123456",
+	// 	Email:    "1039994845@qq.com",
+	// }
+	// json, _ := json.Marshal(user)
+	// w.Write(json)
+
+	//重定向
+	w.Header().Set("Location", "https://gongluck.github.io")
+	w.WriteHeader(http.StatusFound)
 }
 
 func main() {
-	http.HandleFunc("/", handler)
+	//http.HandleFunc("/", handler)
 
-	//myHandler := MyHandler{}
-	//http.Handle("/myHandler", &myHandler)
+	myHandler := MyHandler{}
+	http.Handle("/", &myHandler)
 
 	// 创建Server结构，并详细配置里面的字段
 	// server := http.Server{
