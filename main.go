@@ -2,13 +2,13 @@
  * @Author: gongluck
  * @Date: 2020-05-25 22:50:32
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-30 15:44:26
+ * @Last Modified time: 2020-05-30 16:00:52
  */
 
 package main
 
 import (
-	"GoWeb/model"
+	//"GoWeb/model"
 	"fmt"
 	"net/http"
 	//"encoding/json"
@@ -67,11 +67,12 @@ func (m *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func handlerAction(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("index.html", "index2.html")
-	t.ExecuteTemplate(w, "index.html", []model.User{
-		{ID : 1, Username : "gongluck", Password : "123456", Email : "1039994845@qq.com"},
-		{ID : 2, Username : "gong", Password : "888888", Email : "11111111@qq.com"},
-		{ID : 3, Username : "luck", Password : "654321", Email : "888888888@qq.com"},
-	})
+	// t.ExecuteTemplate(w, "index.html", []model.User{
+	// 	{ID : 1, Username : "gongluck", Password : "123456", Email : "1039994845@qq.com"},
+	// 	{ID : 2, Username : "gong", Password : "888888", Email : "11111111@qq.com"},
+	// 	{ID : 3, Username : "luck", Password : "654321", Email : "888888888@qq.com"},
+	// })
+	t.ExecuteTemplate(w, "model", "")
 }
 
 func main() {

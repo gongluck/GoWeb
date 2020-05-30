@@ -35,3 +35,17 @@
         {{template "index2.html" .}}
     </body>
 </html>
+
+<!-- 定义模板 -->
+{{define "model"}}
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        {{block "contennt" .}}
+        <a href="https://github.com/gongluck/GoWeb">git***</a>
+        {{end}}
+    </body>
+</html>
+{{end}}
