@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-25 22:50:32
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-30 16:00:52
+ * @Last Modified time: 2020-05-30 22:06:30
  */
 
 package main
@@ -11,9 +11,10 @@ import (
 	//"GoWeb/model"
 	"fmt"
 	"net/http"
+
 	//"encoding/json"
-	"html/template"
 	"GoWeb/controller"
+	"html/template"
 )
 
 // 创建处理器函数
@@ -83,6 +84,7 @@ func main() {
 	http.HandleFunc("/login", controller.Login)
 	http.HandleFunc("/regist", controller.Regist)
 	http.HandleFunc("/checkUserName", controller.CheckUserName)
+	http.HandleFunc("/getBooks", controller.GetBooks)
 
 	//设置静态资源
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("views/static/"))))
