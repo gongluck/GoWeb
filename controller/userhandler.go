@@ -2,7 +2,7 @@
  * @Author: gongluck 
  * @Date: 2020-05-30 13:44:52 
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-30 14:12:12
+ * @Last Modified time: 2020-05-30 14:52:07
  */
 
 package controller
@@ -40,5 +40,15 @@ func Regist(w http.ResponseWriter, r *http.Request){
 		dao.SaveUser(username, password, email)
 		t := template.Must(template.ParseFiles("views/pages/user/regist_success.html"))
 		t.Execute(w, "")
+	}
+}
+
+func CheckUserName(w http.ResponseWriter, r *http.Request){
+	username := r.PostFormValue("username")
+	user, _ := dao.CheckUserName(username)
+	if user.ID != 0{
+		w.Write([]byte("用户名已存在!"))
+	} else {
+		w.Write([]byte("用户名可用!"))
 	}
 }

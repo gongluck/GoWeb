@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-25 22:50:32
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-30 14:01:47
+ * @Last Modified time: 2020-05-30 14:39:53
  */
 
 package main
@@ -70,6 +70,7 @@ func main() {
 
 	http.HandleFunc("/login", controller.Login)
 	http.HandleFunc("/regist", controller.Regist)
+	http.HandleFunc("/checkUserName", controller.CheckUserName)
 
 	//设置静态资源
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("views/static/"))))

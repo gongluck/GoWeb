@@ -62,6 +62,16 @@
 		if("{{.}}"=="用户名已存在！"){
 			$("#msg").show();
 		}
+
+		$("#username").change(function(){
+			var username = $(this).val();
+			var url = "/checkUserName";
+			var param = {"username":username};
+			$.post(url, param, function(res){
+				$("#msg").show();
+				$("#msg").text(res);
+			});
+		})
 	});
 </script>
 </head>
