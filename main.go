@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-25 22:50:32
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-25 23:30:24
+ * @Last Modified time: 2020-05-30 14:01:47
  */
 
 package main
@@ -13,6 +13,7 @@ import (
 	"net/http"
 	//"encoding/json"
 	"html/template"
+	"GoWeb/controller"
 )
 
 // 创建处理器函数
@@ -66,6 +67,9 @@ func (m *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	//http.HandleFunc("/", handler)
+
+	http.HandleFunc("/login", controller.Login)
+	http.HandleFunc("/regist", controller.Regist)
 
 	//设置静态资源
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("views/static/"))))
