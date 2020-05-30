@@ -13,9 +13,25 @@
 
         {{range .}}
         遍历到 {{.}}<br/>
-        名字：{{.Username}}<br/><br/>
+        名字：{{.Username}}<br/>
         {{else}}
         元素为空
         {{end}}
+
+        <br/><br/>
+
+        {{with "设置值"}}
+        修改之后的值是：{{.}}
+        {{end}}
+        <br/>
+        {{with ""}}
+        {{else}}
+        原来的值是：{{.}}
+        {{end}}
+
+        <br/><br/>
+
+        包含子模板<br/>
+        {{template "index2.html" .}}
     </body>
 </html>
