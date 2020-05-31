@@ -20,6 +20,7 @@ func TestBook(t *testing.T) {
 	t.Run("测试获取图书", testGetBook)
 	t.Run("测试更新图书", testUpdateBook)
 	t.Run("测试获取图书页", testGetPageBooks)
+	t.Run("测试按价格获取图书页", testGetPageBooksByPrice)
 }
 
 func testGetBooks(t *testing.T) {
@@ -65,6 +66,14 @@ func testUpdateBook(t *testing.T) {
 
 func testGetPageBooks(t *testing.T) {
 	page, err := GetPageBooks("1")
+	fmt.Println("err:", err, "PageNo:", page.PageNo, "PageSize:", page.PageSize, "TotalPageNo:", page.TotalPageNo, "TotalRecord:", page.TotalRecord)
+	for k, v := range page.Books {
+		fmt.Printf("第%v本书信息：%v\n", k+1, v)
+	}
+}
+
+func testGetPageBooksByPrice(t *testing.T) {
+	page, err := GetPageBooksByPrice("1", "10", "30")
 	fmt.Println("err:", err, "PageNo:", page.PageNo, "PageSize:", page.PageSize, "TotalPageNo:", page.TotalPageNo, "TotalRecord:", page.TotalRecord)
 	for k, v := range page.Books {
 		fmt.Printf("第%v本书信息：%v\n", k+1, v)

@@ -17,7 +17,7 @@ import (
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	pageNo := r.FormValue("pageNo")
-	if pageNo == ""{
+	if pageNo == "" {
 		pageNo = "1"
 	}
 	page, _ := dao.GetPageBooks(pageNo)
@@ -27,11 +27,30 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 
 func GetPageBooks(w http.ResponseWriter, r *http.Request) {
 	pageNo := r.FormValue("pageNo")
-	if pageNo == ""{
+	if pageNo == "" {
 		pageNo = "1"
 	}
 	page, _ := dao.GetPageBooks(pageNo)
 	t := template.Must(template.ParseFiles("views/pages/manager/book_manager.html"))
+	t.Execute(w, page)
+}
+
+func GetPageBooksByPrice(w http.ResponseWriter, r *http.Request) {
+	pageNo := r.FormValue("pageNo")
+	if pageNo == "" {
+		pageNo = "1"
+	}
+	minPrice := r.FormValue("min")
+	maxPrice := r.FormValue("max")
+	var page *model.Page
+	if minPrice == "" && maxPrice == "" {
+		page, _ = dao.GetPageBooks(pageNo)
+	} else {
+		page, _ = dao.GetPageBooksByPrice(pageNo, minPrice, maxPrice)
+		page.MinPrice = minPrice
+		page.MaxPrice = maxPrice
+	}
+	t := template.Must(template.ParseFiles("views/index.html"))
 	t.Execute(w, page)
 }
 
