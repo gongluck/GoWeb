@@ -2,15 +2,15 @@
  * @Author: gongluck
  * @Date: 2020-05-30 21:49:00
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-31 15:33:59
+ * @Last Modified time: 2020-05-31 16:38:25
  */
 
 package dao
 
 import (
+	"GoWeb/model"
 	"fmt"
 	"testing"
-	"GoWeb/model"
 )
 
 func TestBook(t *testing.T) {
@@ -19,6 +19,7 @@ func TestBook(t *testing.T) {
 	t.Run("测试删除图书", testDeleteBook)
 	t.Run("测试获取图书", testGetBook)
 	t.Run("测试更新图书", testUpdateBook)
+	t.Run("测试获取图书页", testGetPageBooks)
 }
 
 func testGetBooks(t *testing.T) {
@@ -30,12 +31,12 @@ func testGetBooks(t *testing.T) {
 
 func testAddBook(t *testing.T) {
 	book := &model.Book{
-		Title:"三国演义",
-		Author:"罗贯中",
-		Price:88.88,
-		Sales:100,
-		Stock:100,
-		ImgPath:"/static/img/default.jpg",
+		Title:   "三国演义",
+		Author:  "罗贯中",
+		Price:   88.88,
+		Sales:   100,
+		Stock:   100,
+		ImgPath: "/static/img/default.jpg",
 	}
 	AddBook(book)
 }
@@ -51,13 +52,21 @@ func testGetBook(t *testing.T) {
 
 func testUpdateBook(t *testing.T) {
 	book := &model.Book{
-		ID : 10,
-		Title:"三国演义",
-		Author:"罗贯中",
-		Price:98.88,
-		Sales:8,
-		Stock:8,
-		ImgPath:"/static/img/default.jpg",
+		ID:      10,
+		Title:   "三国演义",
+		Author:  "罗贯中",
+		Price:   98.88,
+		Sales:   8,
+		Stock:   8,
+		ImgPath: "/static/img/default.jpg",
 	}
 	fmt.Println(UpdateBook(book))
+}
+
+func testGetPageBooks(t *testing.T) {
+	page, err := GetPageBooks("1")
+	fmt.Println("err:", err, "PageNo:", page.PageNo, "PageSize:", page.PageSize, "TotalPageNo:", page.TotalPageNo, "TotalRecord:", page.TotalRecord)
+	for k, v := range page.Books {
+		fmt.Printf("第%v本书信息：%v\n", k+1, v)
+	}
 }

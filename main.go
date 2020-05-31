@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-25 22:50:32
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-31 15:37:12
+ * @Last Modified time: 2020-05-31 16:27:24
  */
 
 package main
@@ -85,7 +85,6 @@ func main() {
 	http.HandleFunc("/regist", controller.Regist)
 	http.HandleFunc("/checkUserName", controller.CheckUserName)
 	http.HandleFunc("/getBooks", controller.GetBooks)
-	http.HandleFunc("/addBook", controller.AddBook)
 	http.HandleFunc("/deleteBook", controller.DeleteBook)
 	http.HandleFunc("/toUpdateBookPage", controller.ToUpdateBookPage)
 	http.HandleFunc("/updateBook", controller.UpdateBook)

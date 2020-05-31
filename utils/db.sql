@@ -45,3 +45,7 @@ INSERT INTO books (title, author ,price, sales , stock , img_path) VALUES('设�
 INSERT INTO books (title, author ,price, sales , stock , img_path) VALUES('图解机器学习','杉山将',33.80,100,100,'static/img/default.jpg');
 INSERT INTO books (title, author ,price, sales , stock , img_path) VALUES('艾伦图灵传','安德鲁',47.20,100,100,'static/img/default.jpg');
 INSERT INTO books (title, author ,price, sales , stock , img_path) VALUES('教父','马里奥普佐',29.00,100,100,'static/img/default.jpg');
+
+SELECT * FROM books LIMIT 0,4
+SELECT * FROM books LIMIT 4,4
+SELECT * FROM books LIMIT 8,4
