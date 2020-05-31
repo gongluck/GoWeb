@@ -2,15 +2,17 @@
  * @Author: gongluck
  * @Date: 2020-05-30 13:44:52
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-30 21:59:25
+ * @Last Modified time: 2020-05-31 14:01:36
  */
 
 package controller
 
 import (
 	"GoWeb/dao"
+	"GoWeb/model"
 	"html/template"
 	"net/http"
+	"strconv"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
@@ -57,4 +59,25 @@ func GetBooks(w http.ResponseWriter, r *http.Request) {
 	books, _ := dao.GetBooks()
 	t := template.Must(template.ParseFiles("views/pages/manager/book_manager.html"))
 	t.Execute(w, books)
+}
+
+func AddBook(w http.ResponseWriter, r *http.Request) {
+	title := r.PostFormValue("title")
+	author := r.PostFormValue("author")
+	price := r.PostFormValue("price")
+	sales := r.PostFormValue("sales")
+	stock := r.PostFormValue("stock")
+	fprice, _:= strconv.ParseFloat(price, 64)
+	isales, _ := strconv.ParseInt(sales, 10, 0)
+	istock, _ := strconv.ParseInt(stock, 10, 0)
+	book := &model.Book{
+		Title:title,
+		Author:author,
+		Price:fprice,
+		Sales:int(isales),
+		Stock:int(istock),
+		ImgPath:"/static/img/default.jpg",
+	}
+	dao.AddBook(book)
+	GetBooks(w, r)
 }

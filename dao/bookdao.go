@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-30 21:44:15
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-30 21:53:39
+ * @Last Modified time: 2020-05-31 13:46:12
  */
 
 package dao
@@ -27,4 +27,13 @@ func GetBooks() ([]*model.Book, error) {
 	}
 
 	return books, nil
+}
+
+func AddBook(b *model.Book) error {
+	sqlStr := "insert into books(title, author, price, sales, stock, img_path) values(?, ?, ?, ?, ?, ?)"
+	_, err := utils.Db.Exec(sqlStr, b.Title, b.Author, b.Price, b.Sales, b.Stock, b.ImgPath)
+	if err != nil{
+		return err
+	}
+	return nil
 }
