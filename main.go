@@ -89,12 +89,14 @@ func main() {
 	http.HandleFunc("/toUpdateBookPage", controller.ToUpdateBookPage)
 	http.HandleFunc("/updateBook", controller.UpdateBook)
 
+	http.HandleFunc("/main", controller.IndexHandler)
+
 	//设置静态资源
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("views/static/"))))
 	http.Handle("/pages/", http.StripPrefix("/pages/", http.FileServer(http.Dir("views/pages/"))))
 
-	myHandler := MyHandler{}
-	http.Handle("/main", &myHandler)
+	// myHandler := MyHandler{}
+	// http.Handle("/main", &myHandler)
 
 	// 创建Server结构，并详细配置里面的字段
 	// server := http.Server{

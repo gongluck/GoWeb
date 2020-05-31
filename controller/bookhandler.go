@@ -15,6 +15,16 @@ import (
 	"strconv"
 )
 
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
+	pageNo := r.FormValue("pageNo")
+	if pageNo == ""{
+		pageNo = "1"
+	}
+	page, _ := dao.GetPageBooks(pageNo)
+	t := template.Must(template.ParseFiles("views/index.html"))
+	t.Execute(w, page)
+}
+
 func GetPageBooks(w http.ResponseWriter, r *http.Request) {
 	pageNo := r.FormValue("pageNo")
 	if pageNo == ""{
