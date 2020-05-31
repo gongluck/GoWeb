@@ -76,10 +76,36 @@ func handlerAction(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "model", "")
 }
 
+func handlerCookie(w http.ResponseWriter, r *http.Request) {
+	cookie := http.Cookie{
+		Name:     "user",
+		Value:    "test",
+		HttpOnly: true,
+		MaxAge:   10,
+	}
+	// cookie2 := http.Cookie{
+	// 	Name:     "cookie2",
+	// 	Value:    "more test",
+	// 	HttpOnly: true,
+	// }
+	// w.Header().Set("Set-Cookie", cookie.String())
+	// w.Header().Add("Set_Cookie", cookie2.String())
+
+	http.SetCookie(w, &cookie)
+}
+
+func handlerGetCookie(w http.ResponseWriter, r *http.Request) {
+	//cookies := r.Header["Cookie"]
+	cookies, _ := r.Cookie("user")
+	fmt.Println("Get all cookies:", cookies)
+}
+
 func main() {
 	//http.HandleFunc("/", handler)
 
 	http.HandleFunc("/action", handlerAction)
+	http.HandleFunc("/cookie", handlerCookie)
+	http.HandleFunc("/getcookie", handlerGetCookie)
 
 	http.HandleFunc("/login", controller.Login)
 	http.HandleFunc("/regist", controller.Regist)
