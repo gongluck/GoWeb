@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-30 13:44:52
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-31 15:04:53
+ * @Last Modified time: 2020-05-31 15:43:22
  */
 
 package controller
@@ -93,4 +93,28 @@ func ToUpdateBookPage(w http.ResponseWriter, r *http.Request) {
 	book, _ := dao.GetBookByID(bookID)
 	t := template.Must(template.ParseFiles("views/pages/manager/book_modify.html"))
 	t.Execute(w, book)
+}
+
+func UpdateBook(w http.ResponseWriter, r *http.Request) {
+	bookID := r.PostFormValue("bookId")
+	title := r.PostFormValue("title")
+	author := r.PostFormValue("author")
+	price := r.PostFormValue("price")
+	sales := r.PostFormValue("sales")
+	stock := r.PostFormValue("stock")
+	ibookID, _ := strconv.ParseInt(bookID, 10, 0)
+	fprice, _:= strconv.ParseFloat(price, 64)
+	isales, _ := strconv.ParseInt(sales, 10, 0)
+	istock, _ := strconv.ParseInt(stock, 10, 0)
+	book := &model.Book{
+		ID:int(ibookID),
+		Title:title,
+		Author:author,
+		Price:fprice,
+		Sales:int(isales),
+		Stock:int(istock),
+		ImgPath:"/static/img/default.jpg",
+	}
+	dao.UpdateBook(book)
+	GetBooks(w, r)
 }

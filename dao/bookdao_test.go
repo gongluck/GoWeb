@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-30 21:49:00
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-31 15:00:05
+ * @Last Modified time: 2020-05-31 15:33:59
  */
 
 package dao
@@ -18,6 +18,7 @@ func TestBook(t *testing.T) {
 	t.Run("测试添加图书", testAddBook)
 	t.Run("测试删除图书", testDeleteBook)
 	t.Run("测试获取图书", testGetBook)
+	t.Run("测试更新图书", testUpdateBook)
 }
 
 func testGetBooks(t *testing.T) {
@@ -46,4 +47,17 @@ func testDeleteBook(t *testing.T) {
 func testGetBook(t *testing.T) {
 	book, err := GetBookByID("10")
 	fmt.Println(book, err)
+}
+
+func testUpdateBook(t *testing.T) {
+	book := &model.Book{
+		ID : 10,
+		Title:"三国演义",
+		Author:"罗贯中",
+		Price:98.88,
+		Sales:8,
+		Stock:8,
+		ImgPath:"/static/img/default.jpg",
+	}
+	fmt.Println(UpdateBook(book))
 }

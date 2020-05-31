@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-30 21:44:15
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-31 15:00:43
+ * @Last Modified time: 2020-05-31 15:34:41
  */
 
 package dao
@@ -53,4 +53,13 @@ func GetBookByID(bookID string)(*model.Book, error){
 	book := &model.Book{}
 	err := row.Scan(&book.ID, &book.Title, &book.Author, &book.Price, &book.Sales, &book.Stock, &book.ImgPath)
 	return book, err
+}
+
+func UpdateBook(b *model.Book) error {
+	sqlStr:="update books set title=?, author=?, price=?, sales=?, stock=?, img_path=? where id=?"
+	_, err := utils.Db.Exec(sqlStr, b.Title, b.Author, b.Price, b.Sales, b.Stock, b.ImgPath, b.ID)
+	if err != nil{
+		return err
+	}
+	return nil
 }
