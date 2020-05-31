@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-30 13:44:52
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-31 14:23:17
+ * @Last Modified time: 2020-05-31 15:04:53
  */
 
 package controller
@@ -86,4 +86,11 @@ func DeleteBook(w http.ResponseWriter, r *http.Request) {
 	bookID := r.FormValue("bookId")
 	dao.DeleteBook(bookID)
 	GetBooks(w, r)
+}
+
+func ToUpdateBookPage(w http.ResponseWriter, r *http.Request) {
+	bookID := r.FormValue("bookId")
+	book, _ := dao.GetBookByID(bookID)
+	t := template.Must(template.ParseFiles("views/pages/manager/book_modify.html"))
+	t.Execute(w, book)
 }

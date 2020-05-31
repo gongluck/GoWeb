@@ -49,7 +49,7 @@
 				<td>{{.Author}}</td>
 				<td>{{.Sales}}</td>
 				<td>{{.Stock}}</td>
-				<td><a href="/pages/manager/book_edit.html">修改</a></td>
+				<td><a href="/toUpdateBookPage?bookId={{.ID}}">修改</a></td>
 				<td><a id="{{.Title}}" class="deleteBook" href="/deleteBook?bookId={{.ID}}">删除</a></td>
 			</tr>	
 		{{end}}	

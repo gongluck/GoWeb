@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-30 21:44:15
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-31 14:19:58
+ * @Last Modified time: 2020-05-31 15:00:43
  */
 
 package dao
@@ -45,4 +45,12 @@ func DeleteBook(bookID string) error {
 		return err
 	}
 	return nil
+}
+
+func GetBookByID(bookID string)(*model.Book, error){
+	sqlStr:="select id, title, author, price, sales, stock, img_path from books where id=?"
+	row := utils.Db.QueryRow(sqlStr, bookID)
+	book := &model.Book{}
+	err := row.Scan(&book.ID, &book.Title, &book.Author, &book.Price, &book.Sales, &book.Stock, &book.ImgPath)
+	return book, err
 }

@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-25 22:50:32
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-31 14:24:33
+ * @Last Modified time: 2020-05-31 15:02:04
  */
 
 package main
@@ -87,6 +87,7 @@ func main() {
 	http.HandleFunc("/getBooks", controller.GetBooks)
 	http.HandleFunc("/addBook", controller.AddBook)
 	http.HandleFunc("/deleteBook", controller.DeleteBook)
+	http.HandleFunc("/toUpdateBookPage", controller.ToUpdateBookPage)
 
 	//设置静态资源
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("views/static/"))))
