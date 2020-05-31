@@ -84,7 +84,7 @@ func main() {
 	http.HandleFunc("/login", controller.Login)
 	http.HandleFunc("/regist", controller.Regist)
 	http.HandleFunc("/checkUserName", controller.CheckUserName)
-	http.HandleFunc("/getBooks", controller.GetBooks)
+	http.HandleFunc("/getPageBooks", controller.GetPageBooks)
 	http.HandleFunc("/deleteBook", controller.DeleteBook)
 	http.HandleFunc("/toUpdateBookPage", controller.ToUpdateBookPage)
 	http.HandleFunc("/updateBook", controller.UpdateBook)

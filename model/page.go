@@ -14,3 +14,27 @@ type Page struct {
 	TotalPageNo int64
 	TotalRecord int64
 }
+
+func (p *Page)IsHasPrev() bool {
+	return p.PageNo > 1
+}
+
+func (p *Page)IsHasNext() bool {
+	return p.PageNo < p.TotalPageNo
+}
+
+func (p *Page)GetPrevPageNo() int64 {
+	if p.IsHasPrev() {
+		return p.PageNo -1
+	} else {
+		return 1
+	}
+}
+
+func (p *Page)GetNextPageNo() int64 {
+	if p.IsHasNext() {
+		return p.PageNo +1
+	} else {
+		return p.TotalPageNo
+	}
+}

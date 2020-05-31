@@ -15,10 +15,14 @@ import (
 	"strconv"
 )
 
-func GetBooks(w http.ResponseWriter, r *http.Request) {
-	books, _ := dao.GetBooks()
+func GetPageBooks(w http.ResponseWriter, r *http.Request) {
+	pageNo := r.FormValue("pageNo")
+	if pageNo == ""{
+		pageNo = "1"
+	}
+	page, _ := dao.GetPageBooks(pageNo)
 	t := template.Must(template.ParseFiles("views/pages/manager/book_manager.html"))
-	t.Execute(w, books)
+	t.Execute(w, page)
 }
 
 func AddBook(w http.ResponseWriter, r *http.Request) {
@@ -39,13 +43,13 @@ func AddBook(w http.ResponseWriter, r *http.Request) {
 		ImgPath: "/static/img/default.jpg",
 	}
 	dao.AddBook(book)
-	GetBooks(w, r)
+	GetPageBooks(w, r)
 }
 
 func DeleteBook(w http.ResponseWriter, r *http.Request) {
 	bookID := r.FormValue("bookId")
 	dao.DeleteBook(bookID)
-	GetBooks(w, r)
+	GetPageBooks(w, r)
 }
 
 func ToUpdateBookPage(w http.ResponseWriter, r *http.Request) {
@@ -86,5 +90,5 @@ func UpdateBook(w http.ResponseWriter, r *http.Request) {
 		dao.AddBook(book)
 	}
 
-	GetBooks(w, r)
+	GetPageBooks(w, r)
 }
