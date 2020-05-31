@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-30 21:49:00
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-31 13:48:15
+ * @Last Modified time: 2020-05-31 14:20:59
  */
 
 package dao
@@ -16,6 +16,7 @@ import (
 func TestBook(t *testing.T) {
 	t.Run("测试获取图书", testGetBooks)
 	t.Run("测试添加图书", testAddBook)
+	t.Run("测试删除图书", testDeleteBook)
 }
 
 func testGetBooks(t *testing.T) {
@@ -35,4 +36,8 @@ func testAddBook(t *testing.T) {
 		ImgPath:"/static/img/default.jpg",
 	}
 	AddBook(book)
+}
+
+func testDeleteBook(t *testing.T) {
+	DeleteBook("31")
 }

@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-30 13:44:52
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-31 14:01:36
+ * @Last Modified time: 2020-05-31 14:23:17
  */
 
 package controller
@@ -79,5 +79,11 @@ func AddBook(w http.ResponseWriter, r *http.Request) {
 		ImgPath:"/static/img/default.jpg",
 	}
 	dao.AddBook(book)
+	GetBooks(w, r)
+}
+
+func DeleteBook(w http.ResponseWriter, r *http.Request) {
+	bookID := r.FormValue("bookId")
+	dao.DeleteBook(bookID)
 	GetBooks(w, r)
 }
