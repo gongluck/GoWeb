@@ -10,6 +10,7 @@ package controller
 import (
 	"GoWeb/dao"
 	"GoWeb/model"
+	"GoWeb/utils"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -50,11 +51,11 @@ func GetPageBooksByPrice(w http.ResponseWriter, r *http.Request) {
 		page.MinPrice = minPrice
 		page.MaxPrice = maxPrice
 	}
-	flag, username := dao.IsLogin(r)
-		if flag {
-			page.IsLogin = true
-			page.Username = username
-		}
+	flag, session := dao.IsLogin(r)
+	if flag {
+		page.IsLogin = true
+		page.Username = session.UserName
+	}
 
 	t := template.Must(template.ParseFiles("views/index.html"))
 	t.Execute(w, page)
@@ -126,4 +127,29 @@ func UpdateBook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	GetPageBooks(w, r)
+}
+
+func AddBook2Cart(w http.ResponseWriter, r *http.Request) {
+	bookID := r.FormValue("bookId")
+	book, _ := dao.GetBookByID(bookID)
+	_, session := dao.IsLogin(r)
+	userID := session.UserID
+	cart, _ := dao.GetCartByUserID(userID)
+	if cart != nil {
+
+	} else {
+		cart := &model.Cart{
+			CartID: utils.CreateUUID(),
+			UserID: userID,
+		}
+		var cartItems []*model.CartItem
+		cartItem := &model.CartItem{
+			Book:   book,
+			Count:  1,
+			CartID: cart.CartID,
+		}
+		cartItems = append(cartItems, cartItem)
+		cart.CartItems = cartItems
+		dao.AddCart(cart)
+	}
 }
