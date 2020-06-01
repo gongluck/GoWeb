@@ -49,3 +49,10 @@ INSERT INTO books (title, author ,price, sales , stock , img_path) VALUES('æ•™çˆ
 SELECT * FROM books LIMIT 0,4
 SELECT * FROM books LIMIT 4,4
 SELECT * FROM books LIMIT 8,4
+
+CREATE TABLE sessions(
+    session_id VARCHAR(100) PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES users(id)
+)
