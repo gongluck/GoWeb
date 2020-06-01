@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-25 22:50:32
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-31 16:27:24
+ * @Last Modified time: 2020-06-01 13:47:16
  */
 
 package main
@@ -108,6 +108,7 @@ func main() {
 	http.HandleFunc("/getcookie", handlerGetCookie)
 
 	http.HandleFunc("/login", controller.Login)
+	http.HandleFunc("/logout", controller.Logout)
 	http.HandleFunc("/regist", controller.Regist)
 	http.HandleFunc("/checkUserName", controller.CheckUserName)
 	http.HandleFunc("/getPageBooks", controller.GetPageBooks)

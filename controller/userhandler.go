@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-30 13:44:52
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-06-01 09:51:44
+ * @Last Modified time: 2020-06-01 13:52:52
  */
 
 package controller
@@ -39,6 +39,16 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		t := template.Must(template.ParseFiles("views/pages/user/login.html"))
 		t.Execute(w, "用户名或密码不正确！")
 	}
+}
+
+func Logout(w http.ResponseWriter, r *http.Request) {
+	cookie, _ := r.Cookie("user")
+	if cookie != nil{
+		cookieValue := cookie.Value
+		dao.DeleteSession(cookieValue)
+		cookie.MaxAge = -1
+	}
+	GetPageBooksByPrice(w, r)
 }
 
 func Regist(w http.ResponseWriter, r *http.Request) {
