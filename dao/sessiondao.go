@@ -2,7 +2,7 @@
  * @Author: gongluck 
  * @Date: 2020-06-01 09:30:24 
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-06-01 09:37:35
+ * @Last Modified time: 2020-06-01 10:23:00
  */
 
 package dao
@@ -28,4 +28,12 @@ func DeleteSession(sessID string) error {
 		return err
 	}
 	return nil
+}
+
+func GetSession(sessId string)(*model.Session, error){
+	sqlStr:= "select session_id, username, user_id from sessions where session_id=?"
+	row := utils.Db.QueryRow(sqlStr, sessId)
+	sess := &model.Session{}
+	err := row.Scan(&sess.SessionID, &sess.UserName, &sess.UserID)
+	return sess, err
 }

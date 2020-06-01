@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-31 16:07:21
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-05-31 16:24:41
+ * @Last Modified time: 2020-06-01 13:38:50
  */
 
 package model
@@ -15,6 +15,8 @@ type Page struct {
 	TotalRecord int64
 	MinPrice    string
 	MaxPrice    string
+	IsLogin bool
+	Username string
 }
 
 func (p *Page) IsHasPrev() bool {
