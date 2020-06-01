@@ -2,7 +2,7 @@
  * @Author: gongluck 
  * @Date: 2020-06-01 15:26:41 
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-06-01 16:25:46
+ * @Last Modified time: 2020-06-01 16:40:08
  */
 
 package model
@@ -26,7 +26,7 @@ func (cart *Cart)GetTotalCount() int64 {
 func (cart *Cart)GetTotalAmount() float64 {
 	var totalAmount float64
 	for _, v := range cart.CartItems {
-		totalAmount = totalAmount + v.Amount
+		totalAmount = totalAmount + v.GetAmount()
 	}
 	return totalAmount
 }
