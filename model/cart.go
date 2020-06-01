@@ -2,7 +2,7 @@
  * @Author: gongluck 
  * @Date: 2020-06-01 15:26:41 
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-06-01 15:30:24
+ * @Last Modified time: 2020-06-01 16:25:46
  */
 
 package model
@@ -17,7 +17,7 @@ type Cart struct {
 
 func (cart *Cart)GetTotalCount() int64 {
 	var totalCount int64
-	for _, v : range cart.CartItems {
+	for _, v := range cart.CartItems {
 		totalCount = totalCount + v.Count
 	}
 	return totalCount
@@ -25,7 +25,7 @@ func (cart *Cart)GetTotalCount() int64 {
 
 func (cart *Cart)GetTotalAmount() float64 {
 	var totalAmount float64
-	for _, v : range cart.CartItems {
+	for _, v := range cart.CartItems {
 		totalAmount = totalAmount + v.Amount
 	}
 	return totalAmount
