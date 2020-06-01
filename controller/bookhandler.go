@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-31 15:49:12
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-06-01 13:41:42
+ * @Last Modified time: 2020-06-01 14:55:08
  */
 
 package controller
@@ -50,15 +50,12 @@ func GetPageBooksByPrice(w http.ResponseWriter, r *http.Request) {
 		page.MinPrice = minPrice
 		page.MaxPrice = maxPrice
 	}
-	cookie, _ := r.Cookie("user")
-	if cookie != nil {
-		cookieValue := cookie.Value
-		session, _ := dao.GetSession(cookieValue)
-		if session.UserID > 0{
+	flag, username := dao.IsLogin(r)
+		if flag {
 			page.IsLogin = true
-			page.Username = session.UserName
+			page.Username = username
 		}
-	}
+
 	t := template.Must(template.ParseFiles("views/index.html"))
 	t.Execute(w, page)
 }

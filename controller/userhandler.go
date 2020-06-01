@@ -2,7 +2,7 @@
  * @Author: gongluck
  * @Date: 2020-05-30 13:44:52
  * @Last Modified by: gongluck
- * @Last Modified time: 2020-06-01 13:52:52
+ * @Last Modified time: 2020-06-01 15:00:46
  */
 
 package controller
@@ -16,6 +16,12 @@ import (
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
+	flag, _ := dao.IsLogin(r)
+	if flag {
+		GetPageBooksByPrice(w, r)
+		return 
+	}
+
 	username := r.PostFormValue("username")
 	password := r.PostFormValue("password")
 

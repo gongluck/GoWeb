@@ -1,6 +1,6 @@
 /*
- * @Author: gongluck 
- * @Date: 2020-06-01 09:38:17 
+ * @Author: gongluck
+ * @Date: 2020-06-01 09:38:17
  * @Last Modified by: gongluck
  * @Last Modified time: 2020-06-01 09:44:00
  */
@@ -8,8 +8,8 @@
 package dao
 
 import (
-	"testing"
 	"GoWeb/model"
+	"testing"
 )
 
 func TestSession(t *testing.T) {
@@ -19,9 +19,9 @@ func TestSession(t *testing.T) {
 
 func testAddSession(t *testing.T) {
 	session := model.Session{
-		SessionID : "testsession",
-		UserName : "gongluck",
-		UserID : 5,
+		SessionID: "testsession",
+		UserName:  "gongluck",
+		UserID:    5,
 	}
 	AddSession(&session)
 }
