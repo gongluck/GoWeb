@@ -132,43 +132,48 @@ func UpdateBook(w http.ResponseWriter, r *http.Request) {
 func AddBook2Cart(w http.ResponseWriter, r *http.Request) {
 	bookID := r.FormValue("bookId")
 	book, _ := dao.GetBookByID(bookID)
-	_, session := dao.IsLogin(r)
-	userID := session.UserID
-	cart, _ := dao.GetCartByUserID(userID)
-	if cart != nil {
-		cartItem, _ := dao.GetCartItemByBookIDAndCartID(bookID, cart.CartID)
-		if cartItem != nil {
-			cts := cart.CartItems
-			for _, v := range cts {
-				if cartItem.Book.ID == v.Book.ID {
-					v.Count = v.Count + 1
-					dao.UpdateBookCount(v.Count, v.Book.ID, cart.CartID)
+	flag, session := dao.IsLogin(r)
+	if flag {
+		userID := session.UserID
+		cart, _ := dao.GetCartByUserID(userID)
+		if cart != nil {
+			cartItem, _ := dao.GetCartItemByBookIDAndCartID(bookID, cart.CartID)
+			if cartItem != nil {
+				cts := cart.CartItems
+				for _, v := range cts {
+					if cartItem.Book.ID == v.Book.ID {
+						v.Count = v.Count + 1
+						dao.UpdateBookCount(v.Count, v.Book.ID, cart.CartID)
+					}
 				}
+			} else {
+				cartItem := &model.CartItem{
+					Book:   book,
+					Count:  1,
+					CartID: cart.CartID,
+				}
+				cart.CartItems = append(cart.CartItems, cartItem)
+				dao.AddCartItem(cartItem)
 			}
+			dao.UpdateCart(cart)
 		} else {
+			cart := &model.Cart{
+				CartID: utils.CreateUUID(),
+				UserID: userID,
+			}
+			var cartItems []*model.CartItem
 			cartItem := &model.CartItem{
 				Book:   book,
 				Count:  1,
 				CartID: cart.CartID,
 			}
-			cart.CartItems = append(cart.CartItems, cartItem)
-			dao.AddCartItem(cartItem)
+			cartItems = append(cartItems, cartItem)
+			cart.CartItems = cartItems
+			dao.AddCart(cart)
 		}
-		dao.UpdateCart(cart)
+		w.Write([]byte("您刚刚将" + book.Title + "添加到了购物车！"))
 	} else {
-		cart := &model.Cart{
-			CartID: utils.CreateUUID(),
-			UserID: userID,
-		}
-		var cartItems []*model.CartItem
-		cartItem := &model.CartItem{
-			Book:   book,
-			Count:  1,
-			CartID: cart.CartID,
-		}
-		cartItems = append(cartItems, cartItem)
-		cart.CartItems = cartItems
-		dao.AddCart(cart)
+		w.Write([]byte("请先登陆！"))
 	}
-	w.Write([]byte(book.Title))
+
 }
