@@ -18,7 +18,7 @@
 	</div>
 	
 	<div id="main">
-	
+		{{if .Cart}}
 		<table>
 			<tr>
 				<td>商品名称</td>
@@ -27,7 +27,7 @@
 				<td>金额</td>
 				<td>操作</td>
 			</tr>	
-			{{range .CartItems}}	
+			{{range .Cart.CartItems}}	
 			<tr>
 				<td>{{.Book.Title}}</td>
 				<td>{{.Count}}</td>
@@ -35,16 +35,18 @@
 				<td>{{.Amount}}</td>
 				<td><a href="#">删除</a></td>
 			</tr>
-			{{end}}		
-			
+			{{end}}	
 		</table>
-		
 		<div class="cart_info">
-			<span class="cart_span">购物车中共有<span class="b_count">{{.TotalCount}}</span>件商品</span>
-			<span class="cart_span">总金额<span class="b_price">{{.TotalAmount}}</span>元</span>
+			<span class="cart_span">购物车中共有<span class="b_count">{{.Cart.TotalCount}}</span>件商品</span>
+			<span class="cart_span">总金额<span class="b_price">{{.Cart.TotalAmount}}</span>元</span>
 			<span class="cart_span"><a href="#">清空购物车</a></span>
 			<span class="cart_span"><a href="/pages/cart/checkout.html">去结账</a></span>
 		</div>
+			
+		{{else}}
+			<h1 style="text-align: center;">您的购物车饥渴难耐，快去<a href="/main" style="color:red;text-align: center;">购物吧</a>></h1>
+		{{end}}
 	
 	</div>
 	
