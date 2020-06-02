@@ -58,5 +58,13 @@ func GetCartItemByBookIDAndCartID(bookID, cardID string) (*model.CartItem, error
 	if err != nil {
 		return nil, err
 	}
+	book, _ := GetBookByID(bookID)
+	cartItem.Book = book
 	return cartItem, nil
+}
+
+func UpdateBookCount(bookCount int64, bookID int, cartID string) error {
+	sqlStr := "update cart_items set count=? where book_id=? and cart_id=?"
+	_, err := utils.Db.Exec(sqlStr, bookCount, bookID, cartID)
+	return err
 }

@@ -7,12 +7,14 @@
 <script src="/static/script/jquery-1.7.2.js"></script>
 <script>
 	$(function(){
+		$("#show").hide()
 		$(".addBook2Cart").click(function(){
 			var bookId = $(this).attr("id");
 			var url = "/addBook2Cart";
 			var param = {"bookId":bookId}
 			$.post(url, param, function(res){
-
+				$("#show").show()
+				$("#bookMsg").text(res)
 			});
 		})
 	})
@@ -48,9 +50,9 @@
 				</form>
 			</div>
 			<div style="text-align: center">
-				<span>您的购物车中有3件商品</span>
+				
 				<div>
-					您刚刚将<span style="color: red">时间简史</span>加入到了购物车中
+					<span id="show">您刚刚将<span style="color: red" id="bookMsg"></span>加入到了购物车中</span>
 				</div>
 			</div>
 

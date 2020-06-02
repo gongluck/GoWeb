@@ -138,7 +138,13 @@ func AddBook2Cart(w http.ResponseWriter, r *http.Request) {
 	if cart != nil {
 		cartItem, _ := dao.GetCartItemByBookIDAndCartID(bookID, cart.CartID)
 		if cartItem != nil {
-
+			cts := cart.CartItems
+			for _, v := range cts {
+				if cartItem.Book.ID == v.Book.ID {
+					v.Count = v.Count + 1
+					dao.UpdateBookCount(v.Count, v.Book.ID, cart.CartID)
+				}
+			}
 		} else {
 			cartItem := &model.CartItem{
 				Book:   book,
@@ -164,4 +170,5 @@ func AddBook2Cart(w http.ResponseWriter, r *http.Request) {
 		cart.CartItems = cartItems
 		dao.AddCart(cart)
 	}
+	w.Write([]byte(book.Title))
 }
