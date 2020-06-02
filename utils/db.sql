@@ -67,7 +67,7 @@ CREATE TABLE carts(
 
 CREATE TABLE cart_items(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    COUNT INT NOT NULL,
+    count INT NOT NULL,
     amount DOUBLE(11,2) NOT NULL,
     book_id INT NOT NULL,
     cart_id VARCHAR(100) NOT NULL,
