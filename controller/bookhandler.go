@@ -143,7 +143,7 @@ func AddBook2Cart(w http.ResponseWriter, r *http.Request) {
 				for _, v := range cts {
 					if cartItem.Book.ID == v.Book.ID {
 						v.Count = v.Count + 1
-						dao.UpdateBookCount(v.Count, v.Book.ID, cart.CartID)
+						dao.UpdateBookCount(v)
 					}
 				}
 			} else {
@@ -176,4 +176,15 @@ func AddBook2Cart(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("请先登陆！"))
 	}
 
+}
+
+func GetCartInfo(w http.ResponseWriter, r *http.Request) {
+	_, session := dao.IsLogin(r)
+	userID := session.UserID
+	cart, _ := dao.GetCartByUserID(userID)
+	cart.UserName = session.UserName
+	if cart != nil {
+		t := template.Must(template.ParseFiles("views/pages/cart/cart.html"))
+		t.Execute(w, cart)
+	}
 }

@@ -12,7 +12,11 @@
 			var url = "/addBook2Cart";
 			var param = {"bookId":bookId}
 			$.post(url, param, function(res){
-				$("#bookMsg").text(res)
+				if(res == "请先登陆！"){
+					location = "/pages/user/login.html"
+				} else {
+					$("#bookMsg").text(res)
+				}
 			});
 		})
 	})
@@ -26,7 +30,7 @@
 			{{if .IsLogin}}
 			<div>
 				<span>欢迎<span class="um_span">{{.Username}}</span>光临尚硅谷书城</span>
-				<a href="/pages/cart/cart.html">购物车</a>
+				<a href="/getCartInfo">购物车</a>
 				<a href="/logout">注销</a>&nbsp;&nbsp;
 				<a href="/main">返回</a>
 			</div>

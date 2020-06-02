@@ -118,6 +118,7 @@ func main() {
 	http.HandleFunc("/toUpdateBookPage", controller.ToUpdateBookPage)
 	http.HandleFunc("/updateBook", controller.UpdateBook)
 	http.HandleFunc("/addBook2Cart", controller.AddBook2Cart)
+	http.HandleFunc("/getCartInfo", controller.GetCartInfo)
 
 	http.HandleFunc("/main", controller.IndexHandler)
 
